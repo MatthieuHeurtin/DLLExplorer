@@ -1,0 +1,44 @@
+﻿<Window x:Class="heurtin.Loader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:heurtin.Loader"
+        mc:Ignorable="d"
+        Title="DLL Explorer" Height="450" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0"  Background="AliceBlue">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="1"  Name="dllFOlder" VerticalAlignment="Bottom" Text="{Binding BrowsewViewModelPath .Path}" Margin="5,1,5,10"/>
+            <Button Grid.Row="2" VerticalAlignment="Bottom" Content="Browse" Command="{Binding BrowseCommand}" Name="browseButton" Margin="5,1,5,10"/>
+            <Button Grid.Row="3" VerticalAlignment="Bottom" Content="Parse DLL" Command="{Binding ParseCommand}" Name="parseButton" Margin="5,1,5,10"/>
+        </Grid>
+        <Grid Grid.Column="1">
+            <ListView Name="dllList"  ItemsSource="{Binding DllProperties}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Modified}" Header="Modified"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding FullPath}" Header="Full Path"/>
+                        <GridViewColumn Header="See DLL Details">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="See Details" Padding="3" Tag="{Binding FullPath}" VerticalAlignment="Center" Click="SeeDllDetails_Click" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        </Grid>
+</Window>
